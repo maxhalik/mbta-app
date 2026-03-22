@@ -4,6 +4,7 @@ import folium
 from streamlit_folium import st_folium
 from datetime import datetime
 import time
+import os
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -15,7 +16,8 @@ st.set_page_config(
 # ── Your API key ──────────────────────────────────────────────────────────────
 # Get a free key at: https://api-v3.mbta.com/register
 # Then replace the string below with your key.
-API_KEY = "YOUR_API_KEY_HERE"
+
+API_KEY = st.secrets.get("MBTA_API_KEY", os.getenv("MBTA_API_KEY", ""))
 
 # ── Route colors (matches MBTA branding) ─────────────────────────────────────
 ROUTE_COLORS = {
