@@ -130,7 +130,8 @@ def build_map(trains_data, stops_lookup, selected_route):
 
         # Format the updated time nicely
         try:
-            dt = datetime.fromisoformat(updated)
+            from zoneinfo import ZoneInfo
+            dt = datetime.fromisoformat(updated).astimezone(ZoneInfo("America/New_York"))
             updated_str = dt.strftime("%-I:%M:%S %p")
         except Exception:
             updated_str = updated
@@ -224,7 +225,8 @@ m, active_count = build_map(trains_data, stops_lookup, selected_route)
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Active Trains", active_count)
-col2.metric("Last Updated", datetime.now(ZoneInfo('EST')).strftime("%-I:%M:%S %p"))
+from zoneinfo import ZoneInfo
+col2.metric("Last Updated", datetime.now(ZoneInfo("America/New_York")).strftime("%-I:%M:%S %p"))
 col3.metric("Line", selected_route.replace("CR-", "") if selected_route != "All Lines" else "All")
 
 st_folium(m, width="100%", height=560, returned_objects=[])
