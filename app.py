@@ -224,7 +224,7 @@ m, active_count = build_map(trains_data, stops_lookup, selected_route)
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Active Trains", active_count)
-col2.metric("Last Updated", datetime.now().strftime("%-I:%M:%S %p"))
+col2.metric("Last Updated", datetime.now(ZoneInfo('EST')).strftime("%-I:%M:%S %p"))
 col3.metric("Line", selected_route.replace("CR-", "") if selected_route != "All Lines" else "All")
 
 st_folium(m, width="100%", height=560, returned_objects=[])
